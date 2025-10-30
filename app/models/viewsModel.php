@@ -7,7 +7,7 @@ class viewsModel
 
     protected function obtenerVistasModelo($vista)
     {
-        $listaBlanca = ["dashboard"];
+        $listaBlanca = ["dashboard", "clientNew", "clientList"];
 
         if (in_array($vista, $listaBlanca)) {
             if (is_file("./app/views/content/" . $vista . "-view.php")) {
@@ -18,7 +18,6 @@ class viewsModel
         } else {
             $contenido = "404";
         }
-
         return $contenido;
     }
 }

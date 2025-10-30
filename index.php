@@ -3,8 +3,8 @@ require_once "./config/app.php";
 require_once "./autoload.php";
 require_once "./app/views/inc/session_start.php";
 
-if (isset($_GET["vista"])) {
-    $url = explode("/", $_GET["vista"]);
+if (isset($_GET["views"])) {
+    $url = explode("/", $_GET["views"]);
 } else {
     $url = ["dashboard"];
 }
@@ -26,10 +26,12 @@ if (isset($_GET["vista"])) {
 
     $vista = $viewsController->obtenerVistasContolador($url[0]);
 
-    if ($vista == "index" || $vista == "404") {
+    if ($vista == "404") {
         require_once "./app/views/content/" . $vista . "-view.php";
     } else {
-        include_once "./app/views/inc/navbar.php";
+
+        require_once "./app/views/inc/navbar.php";
+
         require_once $vista;
     }
 

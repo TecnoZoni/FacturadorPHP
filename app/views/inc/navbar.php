@@ -23,11 +23,11 @@
                         Clientes
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientNew/">
                                 <i class="bi bi-person-add"></i>
                                 Guardar Cliente
                             </a></li>
-                        <li><a class="dropdown-item" href="#">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientList/">
                                 <i class="bi bi-people"></i>
                                 Listar Clientes
                             </a></li>
