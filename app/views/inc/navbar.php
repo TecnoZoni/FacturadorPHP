@@ -31,7 +31,7 @@
                                 <i class="bi bi-people"></i>
                                 Listar Clientes
                             </a></li>
-                        <li><a class="dropdown-item" href="#">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientSearch/">
                                 <i class="bi bi-search"></i>
                                 Buscar Cliente
                             </a></li>
