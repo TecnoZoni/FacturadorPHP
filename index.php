@@ -6,7 +6,7 @@ require_once "./app/views/inc/session_start.php";
 if (isset($_GET["vista"])) {
     $url = explode("/", $_GET["vista"]);
 } else {
-    $url = ["login"];
+    $url = ["dashboard"];
 }
 
 ?>
@@ -17,8 +17,24 @@ if (isset($_GET["vista"])) {
 <?php include_once "./app/views/inc/head.php"; ?>
 
 <body>
-    
-    <?php include_once "./app/views/inc/script.php"; ?>
+
+    <?php
+
+    use app\controllers\viewsController;
+
+    $viewsController = new viewsController();
+
+    $vista = $viewsController->obtenerVistasContolador($url[0]);
+
+    if ($vista == "index" || $vista == "404") {
+        require_once "./app/views/content/" . $vista . "-view.php";
+    } else {
+        include_once "./app/views/inc/navbar.php";
+        require_once $vista;
+    }
+
+    include_once "./app/views/inc/script.php";
+    ?>
 </body>
 
 </html>
