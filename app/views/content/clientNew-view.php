@@ -1,6 +1,7 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-6">
+            <?php include_once "./app/views/inc/btn_back.php" ?>
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
                     <h4 class="mb-0">Registrar nuevo cliente</h4>
@@ -23,8 +24,8 @@
                         <div class="mb-3">
                             <label for="cliente_telefono" class="form-label">Teléfono</label>
                             <input type="tel" class="form-control" id="cliente_telefono" name="cliente_telefono" placeholder="+54 341 1234567"
-                             pattern="^\+?[0-9]{1,3}[ ]?[0-9]{2,4}[ ]?[0-9]{3,4}[ ]?[0-9]{3,4}$" 
-                             maxlength="20" required>
+                                pattern="^\+?[0-9]{1,3}[ ]?[0-9]{2,4}[ ]?[0-9]{3,4}[ ]?[0-9]{3,4}$"
+                                maxlength="20" required>
                         </div>
 
                         <div class="mb-3">

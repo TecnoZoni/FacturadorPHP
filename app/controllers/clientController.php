@@ -241,8 +241,6 @@ class clientController extends mainModel
 
         $id = $this->limpiarCadena($_POST['cliente_id']);
 
-
-
         $datos = $this->ejecutarConsulta("SELECT * FROM cliente WHERE cliente_id='$id'");
         if ($datos->rowCount() <= 0) {
             $alerta = [

@@ -21,8 +21,10 @@ if (isset($_GET["views"])) {
     <?php
 
     use app\controllers\viewsController;
+    use app\models\mainModel;
 
     $viewsController = new viewsController();
+    $insMain = new mainModel();
 
     $vista = $viewsController->obtenerVistasContolador($url[0]);
 
