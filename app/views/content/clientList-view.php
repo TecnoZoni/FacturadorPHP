@@ -1,11 +1,11 @@
 <div class="container-fluid mb-4">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h1 class="h3 mb-0">Usuarios</h1>
-            <small class="text-muted">Lista de usuarios</small>
+            <h1 class="h3 mb-0">Clientes</h1>
+            <small class="text-muted">Lista de clientes</small>
         </div>
         <a href="<?php echo APP_URL; ?>clientNew/" class="btn btn-primary">
-            <i class="bi bi-person-plus"></i> Nuevo usuario
+            <i class="bi bi-person-plus"></i> Nuevo cliente
         </a>
     </div>
 </div>
