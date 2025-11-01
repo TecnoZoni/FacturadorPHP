@@ -46,7 +46,7 @@ class clientController extends mainModel
             return json_encode($alerta);
         }
 
-        if ($this->verificarDatos("^\+?[0-9]{1,3}[ ]?[0-9]{2,4}[ ]?[0-9]{3,4}[ ]?[0-9]{3,4}$", $telefono)) {
+        if ($this->verificarDatos("\+?[0-9]{1,3}[ ]?[0-9]{2,4}[ ]?[0-9]{3,4}[ ]?[0-9]{3,4}", $telefono)) {
             $alerta = [
                 "tipo" => "simple",
                 "titulo" => "Ocurrió un error inesperado",
@@ -189,9 +189,6 @@ class clientController extends mainModel
                 <td>' . $rows['cliente_telefono'] . '</td>
                 <td>' . $rows['cliente_email'] . '</td>
                 <td>
-                    <a href="' . APP_URL . 'clientView/' . $rows['cliente_id'] . '/" class="btn btn-info btn-sm">Ver</a>
-                </td>
-                <td>
                     <a href="' . APP_URL . 'clientUpdate/' . $rows['cliente_id'] . '/" class="btn btn-success btn-sm">Actualizar</a>
                 </td>
                 <td>
@@ -332,7 +329,7 @@ class clientController extends mainModel
             return json_encode($alerta);
         }
 
-        if ($this->verificarDatos("^\+?[0-9]{1,3}[ ]?[0-9]{2,4}[ ]?[0-9]{3,4}[ ]?[0-9]{3,4}$", $telefono)) {
+        if ($this->verificarDatos("\+?[0-9]{1,3}[ ]?[0-9]{2,4}[ ]?[0-9]{3,4}[ ]?[0-9]{3,4}", $telefono)) {
             $alerta = [
                 "tipo" => "simple",
                 "titulo" => "Ocurrió un error inesperado",

@@ -205,7 +205,7 @@ class mainModel
 
         // Si no es la última página, mostramos puntos suspensivos y el último número
         if ($pagina < $numeroPaginas) {
-            if ($pagina + $botones < $numeroPaginas) {
+            if ($pagina  < $numeroPaginas) {
                 $tabla .= '<li class="page-item disabled"><span class="page-link">&hellip;</span></li>';
             }
             $tabla .= '<li class="page-item"><a class="page-link" href="' . $url . $numeroPaginas . '/">' . $numeroPaginas . '</a></li>';

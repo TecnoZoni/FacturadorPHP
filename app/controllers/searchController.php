@@ -9,7 +9,7 @@ class searchController extends mainModel
     public function modulosBusquedaControlador($modulo)
     {
 
-        $listaModulos = ['clientSearch'];
+        $listaModulos = ['clientSearch','productSearch'];
 
         if (in_array($modulo, $listaModulos)) {
             return false;

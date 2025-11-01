@@ -1,9 +1,9 @@
-<div class="container is-fluid mb-6">
-    <h1 class="title">Cliente</h1>
-    <h2 class="subtitle">Buscar cliente</h2>
+<div class="container-fluid mb-4">
+    <h1 class="h3">Cliente</h1>
+    <h2 class="h5 text-muted">Buscar cliente</h2>
 </div>
 
-<div class="container pb-6 pt-6">
+<div class="container py-4">
 
     <?php
 
@@ -13,18 +13,22 @@
     if (!isset($_SESSION[$url[0]]) && empty($_SESSION[$url[0]])) {
     ?>
 
-        <div class="columns">
-            <div class="column">
+        <div class="row">
+            <div class="col">
                 <form class="FormularioAjax" action="<?php echo APP_URL; ?>app/ajax/buscadorAjax.php" method="POST" autocomplete="off">
                     <input type="hidden" name="modulo_buscador" value="buscar">
                     <input type="hidden" name="modulo_url" value="<?php echo $url[0]; ?>">
-                    <div class="field is-grouped">
-                        <p class="control is-expanded">
-                            <input class="input is-rounded" type="text" name="txt_buscador" placeholder="¿Qué estas buscando?" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" maxlength="30" required>
-                        </p>
-                        <p class="control">
-                            <button class="button is-info" type="submit">Buscar</button>
-                        </p>
+
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="txt_buscador"
+                            placeholder="¿Qué estás buscando?"
+                            pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}"
+                            maxlength="30"
+                            required>
+                        <button class="btn btn-info text-white" type="submit">Buscar</button>
                     </div>
                 </form>
             </div>
@@ -32,19 +36,17 @@
 
     <?php } else { ?>
 
-        <div class="columns">
-            <div class="column">
-                <form class="has-text-centered mt-6 mb-6 FormularioAjax" action="<?php echo APP_URL; ?>app/ajax/buscadorAjax.php" method="POST" autocomplete="off">
+        <div class="row">
+            <div class="col">
+                <form class="text-center my-5 FormularioAjax" action="<?php echo APP_URL; ?>app/ajax/buscadorAjax.php" method="POST" autocomplete="off">
                     <input type="hidden" name="modulo_buscador" value="eliminar">
                     <input type="hidden" name="modulo_url" value="<?php echo $url[0]; ?>">
-                    <p>Estas buscando <strong>“<?php echo $_SESSION[$url[0]]; ?>”</strong></p>
-                    <br>
-                    <button type="submit" class="button is-danger is-rounded">Eliminar busqueda</button>
+
+                    <p>Estás buscando <strong>“<?php echo $_SESSION[$url[0]]; ?>”</strong></p>
+                    <button type="submit" class="btn btn-danger rounded-pill mt-3">Eliminar búsqueda</button>
                 </form>
             </div>
         </div>
-
-
 
     <?php
         echo $insCliente->listarClienteControlador($url[1], 10, $url[0], $_SESSION[$url[0]]);
