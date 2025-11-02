@@ -11,11 +11,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="<?php echo APP_URL; ?>dashboard/">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-clipboard"></i>
                         Facturas
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientNew/">
+                                <i class="bi bi-clipboard-plus"></i>
+                                Crear Factura
+                            </a></li>
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientList/">
+                                <i class="bi bi-clipboard-data"></i>
+                                Listar Facturas
+                            </a></li>
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientSearch/">
+                                <i class="bi bi-search"></i>
+                                Buscar Facturas
+                            </a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,16 +71,10 @@
                             </a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">
-                        <i class="bi bi-search"></i>
-                        Buscar Facturas
-                    </a>
-                </li>
             </ul>
         </div>
         <li class="nav-item navbar-nav">
-            <a class="nav-link" aria-current="page" href="#">
+            <a class="nav-link" aria-current="page" href="<?php echo APP_URL; ?>configBoard/1">
                 <i class="bi bi-gear"></i>
                 Configurar Usuario
             </a>

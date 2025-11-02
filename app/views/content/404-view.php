@@ -4,5 +4,5 @@
     <p class="lead">
         La página que estás buscando no existe o fue movida.
     </p>
-    <a href="/" class="btn btn-primary">Volver al inicio</a>
+    <a href="<?php echo APP_URL; ?>dashboard/" class="btn btn-primary">Volver al inicio</a>
 </div>
