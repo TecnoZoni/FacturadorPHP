@@ -43,15 +43,15 @@
                         Productos
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>productNew/">
                                 <i class="bi bi-box2"></i>
                                 Guardar Producto
                             </a></li>
-                        <li><a class="dropdown-item" href="#">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>productList/">
                                 <i class="bi bi-boxes"></i>
                                 Listar Productos
                             </a></li>
-                        <li><a class="dropdown-item" href="#">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>productSearch/">
                                 <i class="bi bi-search"></i>
                                 Buscar Productos
                             </a></li>

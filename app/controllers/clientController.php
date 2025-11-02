@@ -341,7 +341,7 @@ class clientController extends mainModel
 
 
 
-        if ($email != "") {
+        if ($email != "" && $datos['cliente_email'] != $email) {
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $check_email = $this->ejecutarConsulta("SELECT cliente_email FROM cliente WHERE cliente_email='$email'");
                 if ($check_email->rowCount() > 0) {

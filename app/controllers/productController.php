@@ -36,7 +36,7 @@ class productController extends mainModel
             return json_encode($alerta);
         }
 
-        if ($this->verificarDatos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}", $nombre)) {
+        if ($this->verificarDatos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ .-]{3,40}", $nombre)) {
             $alerta = [
                 "tipo" => "simple",
                 "titulo" => "Ocurrió un error inesperado",
@@ -51,6 +51,17 @@ class productController extends mainModel
                 "tipo" => "simple",
                 "titulo" => "Ocurrió un error inesperado",
                 "texto" => "El PRECIO no coincide con el formato solicitado",
+                "icono" => "error"
+            ];
+            return json_encode($alerta);
+        }
+
+        $check_codigo = $this->ejecutarConsulta("SELECT producto_codigo FROM producto WHERE producto_codigo='$codigo'");
+        if ($check_codigo->rowCount() > 0) {
+            $alerta = [
+                "tipo" => "simple",
+                "titulo" => "Ocurrió un error inesperado",
+                "texto" => "El CODIGO que acaba de ingresar ya se encuentra registrado en el sistema, por favor verifique e intente nuevamente",
                 "icono" => "error"
             ];
             return json_encode($alerta);
@@ -294,7 +305,7 @@ class productController extends mainModel
             return json_encode($alerta);
         }
 
-        if ($this->verificarDatos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}", $nombre)) {
+        if ($this->verificarDatos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ .-]{3,40}", $nombre)) {
             $alerta = [
                 "tipo" => "simple",
                 "titulo" => "Ocurrió un error inesperado",
@@ -313,6 +324,20 @@ class productController extends mainModel
             ];
             return json_encode($alerta);
         }
+
+        if ($datos['producto_codigo'] != $codigo) {
+            $check_codigo = $this->ejecutarConsulta("SELECT producto_codigo FROM producto WHERE producto_codigo='$codigo'");
+            if ($check_codigo->rowCount() > 0) {
+                $alerta = [
+                    "tipo" => "simple",
+                    "titulo" => "Ocurrió un error inesperado",
+                    "texto" => "El codigo que acaba de ingresar ya se encuentra registrado en el sistema, por favor verifique e intente nuevamente",
+                    "icono" => "error"
+                ];
+                return json_encode($alerta);
+            }
+        }
+
 
         $producto_datos_up = [
             [
