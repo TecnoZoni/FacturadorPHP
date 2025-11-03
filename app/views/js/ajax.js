@@ -1,10 +1,10 @@
 /* Enviar formularios via AJAX */
-const formularios_ajax=document.querySelectorAll(".FormularioAjax");
+const formularios_ajax = document.querySelectorAll(".FormularioAjax");
 
 formularios_ajax.forEach(formularios => {
 
-    formularios.addEventListener("submit",function(e){
-        
+    formularios.addEventListener("submit", function (e) {
+
         e.preventDefault();
 
         Swal.fire({
@@ -17,15 +17,15 @@ formularios_ajax.forEach(formularios => {
             confirmButtonText: 'Si, realizar',
             cancelButtonText: 'No, cancelar'
         }).then((result) => {
-            if (result.isConfirmed){
+            if (result.isConfirmed) {
 
                 let data = new FormData(this);
-                let method=this.getAttribute("method");
-                let action=this.getAttribute("action");
+                let method = this.getAttribute("method");
+                let action = this.getAttribute("action");
 
-                let encabezados= new Headers();
+                let encabezados = new Headers();
 
-                let config={
+                let config = {
                     method: method,
                     headers: encabezados,
                     mode: 'cors',
@@ -33,11 +33,11 @@ formularios_ajax.forEach(formularios => {
                     body: data
                 };
 
-                fetch(action,config)
-                .then(respuesta => respuesta.json())
-                .then(respuesta =>{ 
-                    return alertas_ajax(respuesta);
-                });
+                fetch(action, config)
+                    .then(respuesta => respuesta.json())
+                    .then(respuesta => {
+                        return alertas_ajax(respuesta);
+                    });
             }
         });
 
@@ -47,8 +47,8 @@ formularios_ajax.forEach(formularios => {
 
 
 
-function alertas_ajax(alerta){
-    if(alerta.tipo=="simple"){
+function alertas_ajax(alerta) {
+    if (alerta.tipo == "simple") {
 
         Swal.fire({
             icon: alerta.icono,
@@ -57,7 +57,7 @@ function alertas_ajax(alerta){
             confirmButtonText: 'Aceptar'
         });
 
-    }else if(alerta.tipo=="recargar"){
+    } else if (alerta.tipo == "recargar") {
 
         Swal.fire({
             icon: alerta.icono,
@@ -65,12 +65,18 @@ function alertas_ajax(alerta){
             text: alerta.texto,
             confirmButtonText: 'Aceptar'
         }).then((result) => {
-            if(result.isConfirmed){
+            if (result.isConfirmed) {
                 location.reload();
             }
         });
 
-    }else if(alerta.tipo=="limpiar"){
+    } else if (alerta.tipo == "limpiar") {
+
+        //Limpiar tabla de productos de la vista "crear facturas"
+        document.querySelector('#tabla-productos tbody').innerHTML = '';
+        total = 0;
+        document.getElementById('total').textContent = '0.00';
+        document.getElementById('factura_total').value = '';
 
         Swal.fire({
             icon: alerta.icono,
@@ -78,12 +84,12 @@ function alertas_ajax(alerta){
             text: alerta.texto,
             confirmButtonText: 'Aceptar'
         }).then((result) => {
-            if(result.isConfirmed){
+            if (result.isConfirmed) {
                 document.querySelector(".FormularioAjax").reset();
             }
         });
 
-    }else if(alerta.tipo=="redireccionar"){
-        window.location.href=alerta.url;
+    } else if (alerta.tipo == "redireccionar") {
+        window.location.href = alerta.url;
     }
 }

@@ -17,7 +17,7 @@
                         Facturas
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientNew/">
+                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>invoiceNew/">
                                 <i class="bi bi-clipboard-plus"></i>
                                 Crear Factura
                             </a></li>

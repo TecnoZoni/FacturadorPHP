@@ -106,7 +106,7 @@ class clientController extends mainModel
 
         $registrar_cliente = $this->guardarDatos("cliente", $cliente_datos_reg);
 
-        if ($registrar_cliente->rowCount() == 1) {
+        if ($registrar_cliente['stmt']->rowCount() == 1) {
             $alerta = [
                 "tipo" => "limpiar",
                 "titulo" => "Cliente registrado",

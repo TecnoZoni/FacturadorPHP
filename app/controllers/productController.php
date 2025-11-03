@@ -92,7 +92,7 @@ class productController extends mainModel
 
         $registrar_producto = $this->guardarDatos("producto", $producto_datos_reg);
 
-        if ($registrar_producto->rowCount() == 1) {
+        if ($registrar_producto['stmt']->rowCount() == 1) {
             $alerta = [
                 "tipo" => "limpiar",
                 "titulo" => "Producto registrado",

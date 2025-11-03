@@ -93,7 +93,8 @@ class mainModel
         }
 
         $query .= ")";
-        $sql = $this->conectar()->prepare($query);
+        $conexion = $this->conectar();
+        $sql = $conexion->prepare($query);
 
         foreach ($datos as $clave) {
             $sql->bindParam($clave["campo_marcador"], $clave["campo_valor"]);
@@ -101,7 +102,11 @@ class mainModel
 
         $sql->execute();
 
-        return $sql;
+        return [
+        "stmt" => $sql,
+        "id" => $conexion->lastInsertId()
+    ];
+
     }
 
 
