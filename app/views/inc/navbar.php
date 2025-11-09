@@ -1,83 +1,70 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="<?php echo APP_URL; ?>dashboard/">
-            <i class="bi bi-clipboard-fill"></i>
-            <strong>
-                FACTURADOR
-            </strong>
+<div class="d-flex">
+    <!-- Sidebar -->
+    <nav class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 250px; min-height: 100vh;">
+        <a href="<?php echo APP_URL; ?>dashboard/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <i class="bi bi-speedometer2 fs-4 me-2"></i>
+            <span class="fs-5 fw-bold">FACTURADOR</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-clipboard"></i>
-                        Facturas
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>invoiceNew/">
-                                <i class="bi bi-clipboard-plus"></i>
-                                Crear Factura
-                            </a></li>
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientList/">
-                                <i class="bi bi-clipboard-data"></i>
-                                Listar Facturas
-                            </a></li>
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientSearch/">
-                                <i class="bi bi-search"></i>
-                                Buscar Facturas
-                            </a></li>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+
+            <!-- Facturas -->
+            <li class="nav-item">
+                <a class="nav-link text-white dropdown-toggle" data-bs-toggle="collapse" href="#submenuFacturas" role="button" aria-expanded="false" aria-controls="submenuFacturas">
+                    <i class="bi bi-file-earmark-text fs-5 me-2"></i>
+                    Facturas
+                </a>
+                <div class="collapse ps-3" id="submenuFacturas">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="<?php echo APP_URL; ?>invoiceNew/" class="nav-link text-white"><i class="bi bi-file-earmark-plus me-2"></i>Crear Factura</a></li>
+                        <li><a href="<?php echo APP_URL; ?>invoiceList/" class="nav-link text-white"><i class="bi bi-journal-text me-2"></i>Listar Facturas</a></li>
+                        <li><a href="<?php echo APP_URL; ?>invoiceSearch/" class="nav-link text-white"><i class="bi bi-search me-2"></i>Buscar Facturas</a></li>
                     </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person"></i>
-                        Clientes
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientNew/">
-                                <i class="bi bi-person-add"></i>
-                                Guardar Cliente
-                            </a></li>
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientList/">
-                                <i class="bi bi-people"></i>
-                                Listar Clientes
-                            </a></li>
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>clientSearch/">
-                                <i class="bi bi-search"></i>
-                                Buscar Cliente
-                            </a></li>
+                </div>
+            </li>
+
+            <!-- Clientes -->
+            <li class="nav-item mt-3">
+                <a class="nav-link text-white dropdown-toggle" data-bs-toggle="collapse" href="#submenuClientes" role="button" aria-expanded="false" aria-controls="submenuClientes">
+                    <i class="bi bi-person-lines-fill fs-5 me-2"></i>
+                    Clientes
+                </a>
+                <div class="collapse ps-3" id="submenuClientes">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="<?php echo APP_URL; ?>clientNew/" class="nav-link text-white"><i class="bi bi-person-plus me-2"></i>Guardar Cliente</a></li>
+                        <li><a href="<?php echo APP_URL; ?>clientList/" class="nav-link text-white"><i class="bi bi-people-fill me-2"></i>Listar Clientes</a></li>
+                        <li><a href="<?php echo APP_URL; ?>clientSearch/" class="nav-link text-white"><i class="bi bi-search me-2"></i>Buscar Cliente</a></li>
                     </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-box-seam"></i>
-                        Productos
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>productNew/">
-                                <i class="bi bi-box2"></i>
-                                Guardar Producto
-                            </a></li>
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>productList/">
-                                <i class="bi bi-boxes"></i>
-                                Listar Productos
-                            </a></li>
-                        <li><a class="dropdown-item" href="<?php echo APP_URL; ?>productSearch/">
-                                <i class="bi bi-search"></i>
-                                Buscar Productos
-                            </a></li>
+                </div>
+            </li>
+
+            <!-- Productos -->
+            <li class="nav-item mt-3">
+                <a class="nav-link text-white dropdown-toggle" data-bs-toggle="collapse" href="#submenuProductos" role="button" aria-expanded="false" aria-controls="submenuProductos">
+                    <i class="bi bi-box2-heart fs-5 me-2"></i>
+                    Productos
+                </a>
+                <div class="collapse ps-3" id="submenuProductos">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="<?php echo APP_URL; ?>productNew/" class="nav-link text-white"><i class="bi bi-box2 me-2"></i>Guardar Producto</a></li>
+                        <li><a href="<?php echo APP_URL; ?>productList/" class="nav-link text-white"><i class="bi bi-boxes me-2"></i>Listar Productos</a></li>
+                        <li><a href="<?php echo APP_URL; ?>productSearch/" class="nav-link text-white"><i class="bi bi-search me-2"></i>Buscar Productos</a></li>
                     </ul>
-                </li>
-            </ul>
-        </div>
-        <li class="nav-item navbar-nav">
-            <a class="nav-link" aria-current="page" href="<?php echo APP_URL; ?>configBoard/1">
-                <i class="bi bi-gear"></i>
-                Configurar Usuario
-            </a>
-        </li>
-    </div>
-</nav>
+                </div>
+            </li>
+
+            <!-- Configuración -->
+            <li class="nav-item mt-4">
+                <a href="<?php echo APP_URL; ?>configBoard/1" class="nav-link text-white">
+                    <i class="bi bi-gear-fill fs-5 me-2"></i>
+                    Configurar Usuario
+                </a>
+            </li>
+
+        </ul>
+        <hr>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="flex-grow-1 p-4">
+        <!-- Aquí va el contenido de cada vista -->

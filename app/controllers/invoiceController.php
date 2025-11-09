@@ -150,4 +150,208 @@ class invoiceController extends mainModel
 
         return json_encode($alerta);
     }
+
+    public function listarFacturaControlador($pagina, $registros, $url, $busqueda)
+    {
+
+        $pagina = $this->limpiarCadena($pagina);
+        $registros = $this->limpiarCadena($registros);
+
+        $url = $this->limpiarCadena($url);
+        $url = APP_URL . $url . "/";
+
+        $busqueda = $this->limpiarCadena($busqueda);
+        $tabla = "";
+
+        $pagina = (isset($pagina) && $pagina > 0) ? (int) $pagina : 1;
+        $inicio = ($pagina > 0) ? (($pagina * $registros) - $registros) : 0;
+
+        if (isset($busqueda) && $busqueda != "") {
+
+            $consulta_datos = "SELECT 
+                                    f.factura_id,
+                                    f.factura_fecha,
+                                    f.factura_total,
+                                    c.cliente_id,
+                                    c.cliente_nombre,
+                                    c.cliente_apellido,
+                                    c.cliente_telefono,
+                                    c.cliente_email
+                                FROM factura f
+                                INNER JOIN cliente c ON f.cliente_id = c.cliente_id
+                                WHERE (
+                                    c.cliente_nombre LIKE '%$busqueda%' 
+                                    OR c.cliente_apellido LIKE '%$busqueda%' 
+                                    OR c.cliente_email LIKE '%$busqueda%' 
+                                    OR c.cliente_telefono LIKE '%$busqueda%' 
+                                    OR f.factura_id LIKE '%$busqueda%' 
+                                    OR f.factura_fecha LIKE '%$busqueda%'
+                                )
+                                ORDER BY f.factura_id DESC
+                                LIMIT $inicio,$registros
+                            ";
+
+
+            $consulta_total = "SELECT COUNT(f.factura_id)
+                                FROM factura f
+                                INNER JOIN cliente c ON f.cliente_id = c.cliente_id
+                                WHERE (
+                                    c.cliente_nombre LIKE '%$busqueda%' 
+                                    OR c.cliente_apellido LIKE '%$busqueda%' 
+                                    OR c.cliente_email LIKE '%$busqueda%' 
+                                    OR c.cliente_telefono LIKE '%$busqueda%' 
+                                    OR f.factura_id LIKE '%$busqueda%' 
+                                    OR f.factura_fecha LIKE '%$busqueda%'
+                                )";
+        } else {
+
+            $consulta_datos = "SELECT 
+                                    f.factura_id,
+                                    f.factura_fecha,
+                                    f.factura_total,
+                                    c.cliente_id,
+                                    c.cliente_nombre,
+                                    c.cliente_apellido,
+                                    c.cliente_telefono,
+                                    c.cliente_email
+                                FROM factura f
+                                INNER JOIN cliente c 
+                                    ON f.cliente_id = c.cliente_id
+                                ORDER BY f.factura_id DESC                                
+                                LIMIT $inicio,$registros";
+
+            $consulta_total = "SELECT COUNT(f.factura_id) FROM factura f INNER JOIN cliente c ON f.cliente_id = c.cliente_id;";
+        }
+
+        $datos = $this->ejecutarConsulta($consulta_datos);
+        $datos = $datos->fetchAll();
+
+        $total = $this->ejecutarConsulta($consulta_total);
+        $total = (int) $total->fetchColumn();
+
+        $numeroPaginas = ceil($total / $registros);
+
+        $tabla .= '
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>#Numero de Factura</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+                <th>Total</th>
+                <th colspan="3">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+';
+
+        if ($total >= 1 && $pagina <= $numeroPaginas) {
+            $contador = $inicio + 1;
+            $pag_inicio = $inicio + 1;
+            foreach ($datos as $rows) {
+                $tabla .= '
+            <tr>
+                <td>' . $rows['factura_id'] . '</td>
+                <td>' . $rows['factura_fecha'] . '</td>
+                <td>' . $rows['cliente_nombre'] . ' ' . $rows['cliente_apellido'] . '</td>
+                <td>' . $rows['cliente_telefono'] . '</td>
+                <td>' . $rows['factura_total'] . '</td>
+                <td>
+                    <a href="' . APP_URL . 'invoiceUpdate/' . $rows['factura_id'] . '/" class="btn btn-success btn-sm">Actualizar</a>
+                </td>
+                <td>
+                    <form class="FormularioAjax" action="' . APP_URL . 'app/ajax/facturaAjax.php" method="POST" autocomplete="off">
+                        <input type="hidden" name="modulo_factura" value="eliminar">
+                        <input type="hidden" name="factura_id" value="' . $rows['factura_id'] . '">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        ';
+                $contador++;
+            }
+            $pag_final = $contador - 1;
+        } else {
+            if ($total >= 1) {
+                $tabla .= '
+            <tr>
+                <td colspan="8">
+                    <a href="' . $url . '1/" class="btn btn-primary mt-4 mb-4">
+                        Haga clic acá para recargar el listado
+                    </a>
+                </td>
+            </tr>
+        ';
+            } else {
+                $tabla .= '
+            <tr>
+                <td colspan="8">No hay registros en el sistema</td>
+            </tr>
+        ';
+            }
+        }
+
+        $tabla .= '</tbody></table></div>';
+
+        if ($total > 0 && $pagina <= $numeroPaginas) {
+            $tabla .= '<p class="text-end">Mostrando facturas <strong>' . $pag_inicio . '</strong> al <strong>' . $pag_final . '</strong> de un <strong>total de ' . $total . '</strong></p>';
+            $tabla .= $this->paginadorTablas($pagina, $numeroPaginas, $url, 7);
+        }
+
+        return $tabla;
+    }
+
+    public function eliminarFacturaControlador()
+    {
+
+        $id = $this->limpiarCadena($_POST['factura_id']);
+
+        $datos = $this->ejecutarConsulta("SELECT * FROM factura WHERE factura_id='$id'");
+        if ($datos->rowCount() <= 0) {
+            $alerta = [
+                "tipo" => "simple",
+                "titulo" => "Ocurrió un error inesperado",
+                "texto" => "No hemos encontrado la factura en el sistema",
+                "icono" => "error"
+            ];
+            return json_encode($alerta);
+        } else {
+            $datos = $datos->fetch();
+        }
+
+        $eliminarDetalleFactura = $this->eliminarRegistro("detalle_factura", "factura_id", $id);
+
+        if ($eliminarDetalleFactura->rowCount() >= 1) {
+
+
+            $eliminarFactura = $this->eliminarRegistro("factura", "factura_id", $id);
+
+            if ($eliminarFactura->rowCount() == 1) {
+                $alerta = [
+                    "tipo" => "recargar",
+                    "titulo" => "Factura eliminada",
+                    "texto" => "La factura N°" . $datos['factura_id'] . " ha sido eliminado del sistema correctamente",
+                    "icono" => "success"
+                ];
+            } else {
+                $alerta = [
+                    "tipo" => "simple",
+                    "titulo" => "Ocurrió un error inesperado",
+                    "texto" => "No hemos podido eliminar la factura N°" . $datos['factura_id'] . " del sistema, por favor intente nuevamente",
+                    "icono" => "error"
+                ];
+            }
+        } else {
+            $alerta = [
+                "tipo" => "simple",
+                "titulo" => "Ocurrió un error inesperado",
+                "texto" => "No hemos podido eliminar la factura N°" . $datos['factura_id'] . " del sistema, por favor intente nuevamente",
+                "icono" => "error"
+            ];
+        }
+
+        return json_encode($alerta);
+    }
 }
