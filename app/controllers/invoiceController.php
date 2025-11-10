@@ -354,4 +354,8 @@ class invoiceController extends mainModel
 
         return json_encode($alerta);
     }
+
+    public function actualizarFacturaControlador(){
+        
+    }
 }

@@ -103,10 +103,9 @@ class mainModel
         $sql->execute();
 
         return [
-        "stmt" => $sql,
-        "id" => $conexion->lastInsertId()
-    ];
-
+            "stmt" => $sql,
+            "id" => $conexion->lastInsertId()
+        ];
     }
 
 
@@ -121,6 +120,11 @@ class mainModel
         if ($tipo == "Unico") {
             $sql = $this->conectar()->prepare("SELECT * FROM $tabla WHERE $campo=:ID");
             $sql->bindParam(":ID", $id);
+        } elseif ($tipo == "Todos") {
+            $sql = $this->conectar()->prepare("SELECT * FROM $tabla WHERE $campo=:ID");
+            $sql->bindParam(":ID", $id);
+            $sql->execute();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
         } elseif ($tipo == "Normal") {
             $sql = $this->conectar()->prepare("SELECT $campo FROM $tabla");
         }

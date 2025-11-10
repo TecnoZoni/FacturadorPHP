@@ -16,6 +16,9 @@ if (isset($_POST["modulo_factura"])) {
     if ($_POST["modulo_factura"] == "eliminar") {
         echo $insFactura->eliminarFacturaControlador();
     }
+    if ($_POST["modulo_factura"] == "actualizar") {
+        echo $insFactura->actualizarFacturaControlador();
+    }
 } else {
     session_destroy();
     header("Location: " . APP_URL . "dashboard/");
