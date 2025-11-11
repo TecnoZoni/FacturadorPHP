@@ -18,6 +18,7 @@ $datos_detalle_factura = $insMain->seleccionarDatos("Todos", "detalle_factura", 
         <form action="<?php echo APP_URL; ?>app/ajax/facturaAjax.php" method="POST" class="FormularioAjax" autocomplete="off">
 
             <input type="hidden" name="modulo_factura" value="actualizar">
+            <input type="hidden" name="factura_id" value="<?php echo $datos_factura['factura_id']; ?>">
 
             <div class="mb-4">
                 <label for="cliente_id" class="form-label">Cliente</label>
@@ -105,7 +106,7 @@ $datos_detalle_factura = $insMain->seleccionarDatos("Todos", "detalle_factura", 
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-success rounded-pill">Guardar factura</button>
+                <button type="submit" class="btn btn-success rounded-pill">Actualizar factura</button>
             </div>
         </form>
 </div>
