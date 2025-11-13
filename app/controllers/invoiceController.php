@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\mainModel;
 
+use app\library\fpdf\FPDF;
+
 class invoiceController extends mainModel
 {
 
@@ -268,6 +270,13 @@ class invoiceController extends mainModel
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
                 </td>
+                <td>
+                    <form class="FormularioAjax" action="' . APP_URL . 'app/ajax/facturaAjax.php" method="POST" autocomplete="off">
+                        <input type="hidden" name="modulo_factura" value="generarPDF">
+                        <input type="hidden" name="factura_id" value="' . $rows['factura_id'] . '">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Generar PDF</button>
+                    </form>
+                </td>
             </tr>
         ';
                 $contador++;
@@ -529,5 +538,37 @@ class invoiceController extends mainModel
         }
 
         return json_encode($alerta);
+    }
+
+    public function generarFacturaControlador()
+    {
+
+        $datosNegocio = $this->ejecutarConsulta("SELECT * FROM configuracion where configuracion_id= 1");
+        if ($datosNegocio->rowCount() <= 0) {
+            $alerta = [
+                "tipo" => "simple",
+                "titulo" => "Ocurrió un error inesperado",
+                "texto" => "No hemos encontrado la configuracion del negocio en el sistema",
+                "icono" => "error"
+            ];
+            return json_encode($alerta);
+        } else {
+            $datosNegocio->fetch();
+        }
+
+        $id = $this->limpiarCadena($_POST['factura_id']);
+
+        $checkFactura = $this->ejecutarConsulta("SELECT * FROM factura WHERE factura_id='$id'");
+        if ($checkFactura->rowCount() <= 0) {
+            $alerta = [
+                "tipo" => "simple",
+                "titulo" => "Ocurrió un error inesperado",
+                "texto" => "No hemos encontrado la factura en el sistema",
+                "icono" => "error"
+            ];
+            return json_encode($alerta);
+        }
+
+        $datosFactura = $this->ejecutarConsulta("SELECT f.factura_id, f.cliente_id, f.factura_fecha, f.factura_total, d.detalle_factura_id, d.producto_id, d.detalle_factura_cantidad, d.detalle_factura_precio_unitario, d.detalle_factura_subtotal, p.producto_codigo, p.producto_nombre, p.producto_precio, p.producto_descripcion FROM factura f INNER JOIN detalle_factura d ON f.factura_id = d.factura_id INNER JOIN producto p ON d.producto_id = p.producto_id WHERE f.factura_id = $id;");
     }
 }
