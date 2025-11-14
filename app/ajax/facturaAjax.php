@@ -19,6 +19,9 @@ if (isset($_POST["modulo_factura"])) {
     if ($_POST["modulo_factura"] == "actualizar") {
         echo $insFactura->actualizarFacturaControlador();
     }
+    if ($_POST["modulo_factura"] == "generarPDF") {
+        echo $insFactura->generarFacturaControlador();
+    }
 } else {
     session_destroy();
     header("Location: " . APP_URL . "dashboard/");
