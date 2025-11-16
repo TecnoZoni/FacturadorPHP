@@ -71,13 +71,6 @@ function alertas_ajax(alerta) {
         });
 
     } else if (alerta.tipo == "limpiar") {
-
-        //Limpiar tabla de productos de la vista "crear facturas"
-        document.querySelector('#tabla-productos tbody').innerHTML = '';
-        total = 0;
-        document.getElementById('total').textContent = '0.00';
-        document.getElementById('factura_total').value = '';
-
         Swal.fire({
             icon: alerta.icono,
             title: alerta.titulo,
@@ -88,6 +81,11 @@ function alertas_ajax(alerta) {
                 document.querySelector(".FormularioAjax").reset();
             }
         });
+        //Limpiar tabla de productos de la vista "crear facturas"
+        document.querySelector('#tabla-productos tbody').innerHTML = '';
+        total = 0;
+        document.getElementById('total').textContent = '0.00';
+        document.getElementById('factura_total').value = '';
 
     } else if (alerta.tipo == "redireccionar") {
         window.location.href = alerta.url;
