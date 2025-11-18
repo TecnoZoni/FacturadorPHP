@@ -654,8 +654,8 @@ class invoiceController extends mainModel
         $pdf->SetFont('Arial', '', 11);
 
         foreach ($datosFactura as $row) {
-            $pdf->Cell(40, 6, $row['producto_codigo'], 1);
-            $pdf->Cell(60, 6, $row['producto_nombre'], 1);
+            $pdf->Cell(40, 6, convertirUTF8($row['producto_codigo']), 1);
+            $pdf->Cell(60, 6, convertirUTF8($row['producto_nombre']), 1);
             $pdf->Cell(20, 6, $row['detalle_factura_cantidad'], 1, 0, 'C');
             $pdf->Cell(35, 6, number_format($row['detalle_factura_precio_unitario'], 2), 1, 0, 'R');
             $pdf->Cell(35, 6, number_format($row['detalle_factura_subtotal'], 2), 1, 1, 'R');
